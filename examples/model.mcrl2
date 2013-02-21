@@ -1,0 +1,101 @@
+%comment
+%-------sorts---------
+sort ClassType = struct 
+			ClassA | 
+			ClassB | 
+			ClassC | 
+			ClassD ; 
+sort Method = struct 
+			getBoolValue | 
+			getBoolValue_return(boolValue:Bool) | 
+			message1(intValue:Int) | 
+			message1_return | 
+			message2 | 
+			message2_return | 
+			message3(Parameter1:SortString) | 
+			message3_return ; 
+
+sort ClassObject = struct
+			objA |
+			objB |
+			objC |
+			objD ;
+
+
+
+
+
+sort SortString = struct 
+			 StringOne |
+			 StringTwo ;
+%-------end sorts---------
+
+%-------action definitions-------
+act synch_call_send,synch_call_receive:Nat#ClassType#ClassObject#Method;
+act synch_reply_receive,synch_reply_send:Nat#ClassType#ClassObject#Method;
+
+act synch_call:Nat#ClassType#ClassObject#Method;
+act synch_reply:Nat#ClassType#ClassObject#Method;
+
+act asynch_call_send,asynch_call_receive:Nat#ClassType#ClassObject#Method;
+act asynch_call:Nat#ClassType#ClassObject#Method;
+
+act internal;
+%-------end action definitions-------
+
+%-------Process definitions--------
+proc ClassA_getBoolValue(id:Nat) = 
+	sum obj:ClassObject.synch_call_receive(id,ClassA,obj,getBoolValue).
+	synch_reply_send(id,ClassA,obj,getBoolValue_return(false))
+;
+
+proc ClassB_message1(id:Nat) = 
+	sum intValue:Int,obj:ClassObject.synch_call_receive(id,ClassB,obj,message1(intValue)).
+	synch_call_send(id,ClassC,objC,message2).
+	synch_reply_receive(id,ClassC,objC,message2_return).
+	synch_reply_send(id,ClassB,obj,message1_return)
+;
+
+proc ClassC_message2(id:Nat) = 
+	sum obj:ClassObject.synch_call_receive(id,ClassC,obj,message2).
+	synch_call_send(id,ClassA,objA,getBoolValue).
+	sum boolValue:Bool.synch_reply_receive(id,ClassA,objA,getBoolValue_return(boolValue)).
+	(
+	(boolValue==true)->(
+	synch_call_send(id,ClassD,objD,message3(StringOne)).
+	synch_reply_receive(id,ClassD,objD,message3_return)
+	 ) <> 
+	(boolValue==false)->(
+	synch_call_send(id,ClassD,objD,message3(StringTwo)).
+	synch_reply_receive(id,ClassD,objD,message3_return)
+	)
+	<> internal).
+	synch_reply_send(id,ClassC,obj,message2_return)
+;
+
+proc ClassD_message3(id:Nat) = 
+	sum Parameter1:SortString,obj:ClassObject.synch_call_receive(id,ClassD,obj,message3(Parameter1)).
+	synch_reply_send(id,ClassD,obj,message3_return)
+;
+
+proc Interaction1(id:Nat) = 
+	synch_call_send(id,ClassB,objB,message1(56)).
+	synch_reply_receive(id,ClassB,objB,message1_return)
+;
+
+%-------End process definitions--------
+
+%-------Init section--------
+
+init hide ({internal},
+allow({internal,synch_call,synch_reply, asynch_call
+},
+comm({
+synch_call_send|synch_call_receive->synch_call,
+synch_reply_receive|synch_reply_send->
+synch_reply,
+asynch_call_send|asynch_call_receive->
+asynch_call
+},
+				 Interaction1(1)
+)));
