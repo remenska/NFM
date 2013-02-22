@@ -212,7 +212,6 @@ conditions and iterations. With the introduction of UML 2.x set of rich features
 such as combined fragments, SDs have become popular for expressing scenarios because of their clear
 and intuitive visual layout and close correspondence with actual code-like
 structures. 
-% HERE INSERT ABOUT "plain-old programming"
 However,
 most of the proposed transformation approaches up to date target only one
 particular type of
@@ -243,7 +242,7 @@ other process algebraic formalisms,
 so the methodology can be easily adapted.
 Due to the true-concurency nature (multi-actions) of mCRL2, we can faithfully express the
 partial-order semantics of SDs, rather than the limited interleaving semantics that many approaches 
-adopt, which is important in distributed systems where the representation of parallelism by non-determinism
+adopt. This is important in distributed systems where the representation of parallelism by non-determinism
 ignores real asynchronous behaviors that may exist.
 The proposed approach in this paper is based on UML 2.x semantics, and makes use
 of both sequence and activity diagrams to automatically derive the target formal model.
@@ -761,7 +760,7 @@ of the \textit{opt} and \textit{break} fragments uses the conditional operator i
 all communication inside each operand is set to run in parallel with the  ``${||}$'' mCRL2 operator.
 The \textit{loop} fragment has a special treatment. It is translated into a recursive process referenced by the mCRL2 process representing
 the method active at the moment of entering the loop.
-Note that there are several less-known combined fragments (like \emph{ignore}, \emph{consider}, \emph{neg}) which are not presented here. 
+There are several less-known combined fragments (like \emph{ignore}, \emph{consider}, \emph{neg}) which are not presented here. 
 While they can be included in the transformation, we have not encountered implementation-language counterparts in
 object-oriented distributed software.
 
