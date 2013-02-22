@@ -495,11 +495,10 @@ so there are essentially 6 different types of message events (shown in Fig.~\ref
 (5) \emph{ReceiveEvent}\textunderscore\emph{asynchCall}; and (6) \emph{SendEvent}\textunderscore\emph{asynchCall}.
 \begin{figure}[!t]
 \centering
-\figshrink
+
 \includegraphics[width=0.65\linewidth,keepaspectratio=true]{./Figure6.png}
 \caption{Identifying event types along lifelines}
 \label{fig:exampleProcesses}
-\figshrinkend
 \vspace{.5cm}
 \end{figure}
 In UML metamodel terms, each of these events correspond to \emph{MessageOccurrenceSpecifications}, and refer to the ends of each \emph{Message}.
@@ -775,15 +774,14 @@ object-oriented distributed software.
 %  \subfloat[Application of AD transformation rules for system-level concurrency setup]{\label{fig:finally}\includegraphics[width =1.0\linewidth]{./Figure9_new.png}}
 %  \caption{Transformation methodology by example}
 %   \label{fig:finally}
-%\vspace{-8 pt}
 %\end{figure*}
 \begin{figure}[t!]
 \centering
-\figshrink
+
 \includegraphics[width=1.0\linewidth]{./Figure9_new.png}
 \caption{Application of AD transformation rules for system-level concurrency setup}
 \label{fig:finally}
-\figshrinkend
+
 \end{figure}
 Finally, Fig.~\ref{fig:finally} shows how a simple system-level concurrency can be expressed in an AD, and how it is translated into an mCRL2 specification.
 ADs consist of \emph{Actions} and \emph{Control Nodes} connected by \emph{Activity Edges}, with each diagram having one \emph{Initial Node}. The 
@@ -794,8 +792,8 @@ depending on the condition,
 three concurrent OS process instances are started with the \emph{Seq2} SD, or alternatively one instance of \emph{Seq1} and \emph{Seq2} in parallel. 
 The \textit{id:Nat} parameter that each mCRL2 process carries is used to bind it to an OS process in the system setup. It is also possible to
 add \emph{Activity Final Node} for systems where execution terminates, by design.
-\subsecshrinkbegin
 \subsubsection{Validating the Transformation}
+\subsecshrinkbegin
 The current UML specification uses a combination of semi-formal diagrams, a constraints language, and natural language descriptions.
 While there has been a substantial effort~\cite{Broy:2006:USS:1762828.1762881,lazuar2010tool,fUML,Diskin06mappings} to formalise the UML semantics, 
 there is still no official mathematically-formalized semantics definition. 
@@ -825,6 +823,7 @@ The fact that we were able to reliably explain complicated bugs observed in prac
 \secshrink
 \section{Case Study: DIRAC’s Executor Framework}
 \label{sec:Application}
+\subsecshrinkbegin
 DIRAC \cite{DIRAC_CommGridSolution} is the grid framework used to support production activities of the LHCb experiment at CERN.
 It covers all major LHCb tasks, starting from the raw data transfer from the experiment’s detector to the grid storage, several steps of data processing, up
 to the final user analysis.
