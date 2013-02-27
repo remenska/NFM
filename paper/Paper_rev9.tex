@@ -107,17 +107,18 @@ Universitat de Barcelona, Spain
 \maketitle
 \vspace{-15 pt}
 \begin{abstract}
-One of the challenges in concurrent software development is early discovery of design
-errors which could lead to deadlocks or race-conditions. For safety-critical and
-complex distributed applications, traditional testing does not always expose such
-problems, so abstract models are necessary for performing formal
-analysis. For object-oriented software, UML is the industry-adopted modeling
+One of the challenges in concurrent software development is early discovery of
+design errors which could lead to deadlocks or race-conditions. For safety-critical and
+complex distributed applications, traditional testing does not always expose
+such problems. Performing more rigorous formal
+analysis typically requires a model, which is an abstraction of the system. For
+object-oriented software, UML is the industry-adopted modeling
 language. UML offers a number of views to present the system from different
 perspectives. Behavioral views are necessary for the purpose of model checking,
 as they capture the dynamics of the system. Among them are sequence diagrams, in
 which the interaction between components is modeled by means of message
 exchanges. UML 2.x includes rich features that
-enable modeling code-like structures, such as loops, conditions and refering to
+enable modeling code-like structures, such as loops, conditions and referring to
 existing interactions.
 We present an automatic procedure for translating UML into mCRL2 process algebra
 models. Our prototype is able to
@@ -147,11 +148,10 @@ industry-standard visual modeling language for describing software systems.
 However, use of these tools alone does not
 assure the correctness of the design, nor does it provide direct means to test
 the software under design,
-let alone prove certain properties of interest, such as the absence of deadlocks. 
-For safety-critical and complex
-distributed applications, traditional testing of the resulting software tends 
-to not always expose
-such problems, so abstract models are necessary for formal analysis.  
+For safety-critical and
+complex distributed applications, traditional testing does not always expose
+such problems. Performing more rigorous formal
+analysis typically requires a model, which is an abstraction of the system.
 In the last decades, more rigorous methods and tools for modeling and analysis
  have been proposed. Despite the research effort,
 these methods are still not widely
@@ -159,7 +159,6 @@ accepted in industry. One problem is the lack of expertise and the necessary
 time investment in the OO development cycle, for becoming proficient in them. 
 A more substantial problem is the lack of a systematic connection between 
 actual implementation and the semantics of the existing formal languages. 
-\vspace{-14 pt}
 
 To bridge the gap between industry-adopted methodologies based on UML
 software designs, and the sophisticated analysis, verification and optimization tools, several approaches have been proposed for
@@ -185,8 +184,6 @@ methodology
 requires that behavioral views of the system be available. The static views of
 a system (such as Class and Deployment UML diagrams) are rarely sufficient to
 extract the necessary information for constructing a target model for meaningful analysis. 
-For instance, multiplicities and associations in Class Diagrams put some constraints on the dynamic system behavior,
-but nevertheless,
 Activity, Sequence, and State Machines are among the most commonly used behavioral diagrams
 for this purpose.
 State Machines (SM) represent the reaction of individual objects on different stimuli;
@@ -196,7 +193,7 @@ rarely used \cite{inpJuDuJuLaPo06a} as the sole paradigm for developing large
 distributed object-oriented systems. Developers almost never
 create a fully-formed object a-priori and in isolation, with all the behavior that the object will ever
 need.
-On the other hand, Activity Diagrams (AD) describe the system at a higher level of
+Activity Diagrams (AD) describe the system at a higher level of
 abstraction, where objects and message exchanges are not captured. They represent 
 workflows of activities, with support for choice and concurrency, and 
 are commonly used for business process modeling. They are also used in early
@@ -237,10 +234,10 @@ data types as well as user-defined functions for data transformation.
 Familiarity with the toolset's simulation,
 debugging,
 visualization and model-checking capabilities has
-influenced our decision, although in principle, ACP has many commonalities with
+influenced our decision, but ACP has many commonalities with
 other process algebraic formalisms,
-so the methodology can be easily adapted.
-Due to the true-concurency nature (multi-actions) of mCRL2, we can faithfully express the
+so in principle the methodology can be easily adapted.
+Due to the true-concurrency nature (multi-actions) of mCRL2, we can faithfully express the
 partial-order semantics of SDs, rather than the limited interleaving semantics that many approaches 
 adopt. This is important in distributed systems where the representation of parallelism by non-determinism
 ignores real asynchronous behaviors that may exist.
@@ -342,7 +339,7 @@ be executed at runtime.
 % For more information on the semantics of combined fragments, the reader can refer to \cite{UML2.4}.
 
 All fragment types above have equivalent constructs in most object oriented languages. 
-Another useful enhancement is the \emph{InteractionUse} fragment. For expressing
+Another useful enhancement is the \emph{InteractionUse} fragment. Thus, for expressing
 complex scenarios, one can include a reference to another SD, which is semantically
 equivalent to including the behavior of the called diagram in the current one. This promotes reuse of already defined
 sequence diagrams. 
@@ -351,8 +348,8 @@ sequence diagrams.
 \subsecshrinkbegin
 \subsubsection{Runtime Semantics}
 Unlike the syntax, the SD semantics is scattered through the UML specification, and defined by the means of natural language. 
-The most important points can be summarized as follows: the sending of a message is caused by previous message
-receptions, and is the object's reaction to these receptions. In that sense, an object does not control the reception of a message.
+The most important points can be summarized as follows: an object sends a message as a result of earlier behavior invocations 
+on its interface, and is the object's reaction to these receptions. In that sense, an object does not control the reception of a message.
 Message and execution completion are considered local concepts.
 For a message \emph{m} sent from object \emph{o1} to object \emph{o2}, the sender's view of that message completion is 
 the sending, the receiver's view of the message completion is its reception, while other objects have no knowledge of \emph{m}.
@@ -762,7 +759,7 @@ The \textit{loop} fragment has a special treatment. It is translated into a recu
 the method active at the moment of entering the loop.
 There are several less-known combined fragments (like \emph{ignore}, \emph{consider}, \emph{neg}) which are not presented here. 
 While they can be included in the transformation, we have not encountered implementation-language counterparts in
-object-oriented distributed software.
+object-oriented distributed software, so they are not tackled here.
 
 %\begin{figure*}[tp!]
 %  \centering
@@ -794,13 +791,13 @@ add \emph{Activity Final Node} for systems where execution terminates, by design
 \subsubsection{Validating the Transformation}
 \subsecshrinkbegin
 The current UML specification uses a combination of semi-formal diagrams, a constraints language, and natural language descriptions.
-While there has been a substantial effort~\cite{Broy:2006:USS:1762828.1762881,lazuar2010tool,fUML,Diskin06mappings} to formalise the UML semantics, 
+While there has been a substantial effort~\cite{Broy:2006:USS:1762828.1762881,lazuar2010tool,fUML,Diskin06mappings} to formalize the UML semantics, 
 there is still no official mathematically-formalized semantics definition. 
 In this context, formal correctness proofs to support the validity of the transformation approach are not possible.
-To assess the correctness of our proposed semantics, we used the simulation and visualisation tools of mCRL2 on
+To assess the correctness of our proposed semantics, we used the simulation and visualization tools of mCRL2 on
 simple diagrams in isolation, in order to get confidence before applying the transformation methodology on
 more complex ones. This informal validation was based on the compositional nature of UML; we closely 
-examined the basic UML constructs' behavior reflected in the formal model, with a special focus on combined fragments.
+examined the basic UML constructs' behaviour reflected in the formal model, with a special focus on combined fragments.
 Furthermore, to facilitate the transformation, we have constructed a UML metamodel~\cite{repo:remenska} of the mCRL2 language syntax.
 The fact that we were able to reliably explain complicated bugs observed in practice provided additional confidence.
 %
@@ -843,22 +840,22 @@ The ExecutorDispatcher takes care of persisting the state of the tasks and distr
 requirements of each task. It maintains a queue of tasks waiting to be processed, and other internal data structures to keep track
 of the distribution of tasks among the Executors.
 During certification testing, certain problems have manifested in the latest developments of the Executors' framework.
-Occasionally, tasks submitted in the system would not get dispatched, dispite the fact that their responsible Executors
+Occasionally, tasks submitted in the system would not get dispatched, despite the fact that their responsible Executors
 were idle at the moment.
 The root cause of this problem could not be identified by testing  with different workload scenarios, nor by analysis of the 
 generated logs. 
 
 We used our toolset to generate an mCRL2 model, based on the reverse-engineered SDs of the Executor Framework implementation. 
-To reason about the correctness of the generated model behavior, mCRL2 relies on
+To reason about the correctness of the generated model behaviour, mCRL2 relies on
 the modal $\mu$-calculus language~\cite{ProcessesWithData}, extended with regular expressions and
 data. Regular expressions are constructed using the boolean constants $true$ and $false$ and the modalities
 ``[]'' (\textit{necessity}) and ``\textless\textgreater'' (\textit{possibly}). 
-The behaviors inside the modalities are specified using \emph{action formulas}.
+The behaviours inside the modalities are specified using \emph{action formulas}.
 The constants $true$ and $false$
 have their usual meaning: $true$ holds in every state, while $false$ does
 not hold in any state of the model. 
 Together with operators like ``$\ast$'', used for expressing cardinality (actions can occur
-any number of times), ``.'', which allows for concatenating behaviors, and ``!'' for the set complement, or negation, powerful expressions can be formulated.
+any number of times), ``.'', which allows for concatenating behaviours, and ``!'' for the set complement, or negation, powerful expressions can be formulated.
 The \emph{action-based} formulas are a good match for our transformation 
 methodology: actions correspond to message exchanges, which already contain the information on the sender/receiver class
 and object of a particular message. As will be discussed in the next section, we plan to utilize this 
@@ -881,7 +878,7 @@ and observe the relevant actions that the system itself takes. This technique, c
 choice in the tool,
 effectively discovered
 a trace violating the property within minutes. The counter-example (Fig.~\ref{fig:noProgress}) is a rather long trace (available at~\cite{repo:remenska}), 
-and traverses a large fraction of the SDs (27 in total), but the bug was localized in a single SD, covering the behavior of 
+and traverses a large fraction of the SDs (27 in total), but the bug was localized in a single SD, covering the behaviour of 
 the ExecutorDispatcher component. 
 We only present the most important part for understanding the cause. 
 Whenever a task has been processed by some of 
@@ -912,16 +909,16 @@ of the DIRAC grid system used by the LHCb experiment at CERN, and discovered a l
 Although the mCRL2 toolset automatically discovers deadlocks, model checking for application-specific properties 
 requires the use of temporal logic on the generated model.
 Part of the future work is expressing modal $\mu$-calculus formulas as sequence diagrams of accept/reject scenarios: 
-behaviors that the designer wants to either confirm or avoid in the model. This can be easily achieved, given that
+behaviours that the designer wants to either confirm or avoid in the model. This can be easily achieved, given that
 $\mu$-calculus formulas are action-based, and actions correspond to message exchanges in our transformation methodology.
 Furthermore, we plan to explore the limitations of this approach, given that process proliferation is likely to happen
 in larger systems. In our case study, we have as many as 50 processes, and already generating the entire state space can be problematic
 at this scale, given that the generated model is over 2000 lines of model code.
 
-Besides discovering behavioral problems, automating performance analysis is on our road-map as well.
+Besides discovering behavioural problems, automating performance analysis is on our road-map as well.
 UML provides extension mechanisms called \emph{Profiles} which allow annotating models with quantitative information,
-such as expected execution time, resource usage, number of requests, etc. 
-These quantities permit assessing the system’s efficiency and reliability. Our approach can be easily extended
+such as expected execution time, resource usage, number of requests, etc.
+These quantities permit assessing the system's efficiency and reliability. Our approach can be easily extended
 in this direction, by taking into account not only message occurrences, but also annotated execution specifications
 within SDs. We can use the same target formalism for enhancing the models with such quantitative information.
 The CADP toolset~\cite{GaravelLMS11} for analysis of stochastic models is well integrated with mCRL2 for this
