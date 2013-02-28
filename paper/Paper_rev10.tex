@@ -173,7 +173,7 @@ analysis. Model checking for certain properties of the system is often done via
 translation into process algebra
 \cite{10.1109/APSEC.2005.7,inpJuDuJuLaPo06a}. Automatic synthesis of functional
 test cases from UML models is possible as well
-\cite{Bandyopadhyay:2009:TIG:1547558.1548197,Pickin02systemtest,Dinh-Trong:2006:SAG:1190616.1191226}. 
+\cite{Bandyopadhyay:2009:TIG:1547558.1548197,Pickin02systemtest}. 
 Model-to-model transformations
 can also be done within the UML domain itself, for the purpose of model optimization or
 refactoring \cite{Whittle:2002:TSM:647246.719610}.
@@ -224,16 +224,15 @@ or their semantical models suffer from flaws
 Furthermore, rarely \cite{Hansen:2010:AVE:2188418.2188435} does an approach give feedback to the software developer 
 on the results of the formal analysis, back into the UML domain. 
 
-Our interest in this paper is obtaining a formal model in the Algebra of
-Communicating Processes (ACP \cite{process_algebra}) process algebra mCRL2
-\cite{FormalLanguagemCRL2},
+Our interest in this paper is obtaining a formal model in the process algebra mCRL2
+\cite{mCRL2},
 taking a UML model as starting point. We chose mCRL2 because it is able to deal
 with abstract
 data types as well as user-defined functions for data transformation.
 Familiarity with the toolset's simulation,
 debugging,
 visualization and model-checking capabilities has
-influenced our decision, but ACP has many commonalities with
+influenced our decision, but mCRL2 has many commonalities with
 other process algebraic formalisms,
 so in principle the methodology can be easily adapted.
 Due to the true-concurrency nature (multi-actions) of mCRL2, we can faithfully express the
@@ -290,7 +289,7 @@ known as \emph{Lifelines} (See Fig.~\ref{fig:example1}, left).
 \begin{figure}[!t]
 \centering
 \figshrink
-\includegraphics[width=1.0\linewidth,keepaspectratio=true]{./Figure1_newNew.png}
+\includegraphics[width=1.0\linewidth,keepaspectratio=true]{./Figure1_final.png}
 \caption{Sequence Diagrams notation}
 \label{fig:example1}
 \figshrinkend
@@ -327,14 +326,14 @@ indicating the type.
 \begin{figure}[!b]
 \centering
 \figshrink
-\includegraphics[width=1.0\linewidth,keepaspectratio=true]{./Figure2_newNew.png}
+\includegraphics[width=1.0\linewidth,keepaspectratio=true]{./Figure2_final.png}
 \caption{Combined Fragments examples}
-\label{fig:example3}
+\label{fig:example2}
 \figshrinkend
 \end{figure}
 Combined Fragments consist of one or more \emph{InteractionOperands}. Depending on the type
 of the fragment, \emph{InteractionConstraints} can guard each of the interaction operands.
-Combined fragments can be nested with an arbitrary nesting depth, to capture complex workflows. Figure~\ref{fig:example3}
+Combined fragments can be nested with an arbitrary nesting depth, to capture complex workflows. Figure~\ref{fig:example2}
 shows how some of them can be used. The guards play a crucial role in deciding which fragment's operand(s) will
 be executed at runtime.
 % For more information on the semantics of combined fragments, the reader can refer to \cite{UML2.4}.
@@ -422,7 +421,7 @@ Furthermore, by a \textbf{sort} definition one can define a new data type. A new
 is declared by \textbf{proc}.
 
 The semantics associated with the mCRL2 syntax is a Labeled Transition System
-system that has multi-action labeled transitions. A more elaborate description of mCRL2 and its features can be found in \cite{FormalLanguagemCRL2}.
+system that has multi-action labeled transitions. A more elaborate description of mCRL2 and its features can be found in \cite{mCRL2}.
 \secshrink
 \section{Transformation Methodology}
 \label{sec:Methodology}
@@ -446,7 +445,7 @@ could be invoking methods of the same object, thus, that object could be executi
 %\label{fig:counterExample}
 %\figshrinkend
 %\end{figure}
-Consider the simple SD in Fig.~\ref{fig:example3} (right). 
+Consider the simple SD in Fig.~\ref{fig:example2} (right). 
 Even if we assume that the scenario is executed by a single OS process, treating 
 each object as a sequential process is problematic. In the example, after invocation of \emph{message1}, object \emph{a}
 needs to know the choice that object \emph{b} has made (modeled with the \emph{alt} fragment), while this choice is based on local conditions that only \emph{b} is aware of. Therefore, \emph{a}
@@ -492,7 +491,7 @@ so there are essentially 6 different types of message events (shown in Fig.~\ref
 \begin{figure}[!b]
 \centering
 %\figshrink
-\includegraphics[width=0.65\linewidth,keepaspectratio=true]{./Figure6.png}
+\includegraphics[width=0.65\linewidth,keepaspectratio=true]{./Figure4_final.png}
 \caption{Identifying event types along lifelines}
 \label{fig:exampleProcesses}
 %\figshrinkend
@@ -649,7 +648,7 @@ fully constructed, a new one is created, and pushed to the ``ready'' stack.
 \begin{figure}[!t]
 \centering
 \figshrink
-\includegraphics[width=1.0\linewidth,keepaspectratio=true]{./aman_full.png}
+\includegraphics[width=1.0\linewidth,keepaspectratio=true]{./Figure5_final.png}
 \caption{Handling Case 4(left), Case 5(middle) and Case 6(right)}
 \label{fig:Algo}
 \figshrinkend
@@ -731,7 +730,7 @@ $ \Gamma_{\{synch\_call\_send|
 \begin{figure}[t!]
 \centering
 \figshrink
-\includegraphics[width=1.0\linewidth]{./yea1.png}
+\includegraphics[width=1.0\linewidth]{./Figure6_final.png}
 \caption{Application of the SD transformation rules}
 \label{fig:application1}
 \figshrinkend
@@ -768,7 +767,7 @@ object-oriented distributed software, so they are not tackled here.
 \begin{figure}[t!]
 \centering
 %\figshrink
-\includegraphics[width=1.0\linewidth]{./Figure9_new.png}
+\includegraphics[width=1.0\linewidth]{./Figure7_final.png}
 \caption{Application of AD transformation rules for system-level concurrency setup}
 \label{fig:finally}
 %\figshrinkend
@@ -787,10 +786,10 @@ add \emph{Activity Final Node} for systems where execution terminates, by design
 \subsecshrinkbegin
 \vspace{-9 pt}
 The current UML specification uses a combination of semi-formal diagrams, a constraints language, and natural language descriptions.
-While there has been a substantial effort~\cite{Broy:2006:USS:1762828.1762881,lazuar2010tool,Diskin06mappings} to formalize the UML semantics, 
+While there has been a substantial effort~\cite{Broy:2006:USS:1762828.1762881,lazuar2010tool,Diskin06mappings} on formalization, 
 there is still no official mathematically-formalized semantics definition. 
 In this context, formal correctness proofs to support the validity of the transformation approach are not possible.
-To assess the correctness of our proposed semantics, we used the simulation and visualization tools of mCRL2 on
+To assess the correctness of our proposed semantics, we used the simulation and visualization mCRL2 tools on
 simple diagrams in isolation, in order to get confidence before applying the transformation methodology on
 more complex ones. This informal validation was based on the compositional nature of UML; we closely 
 examined the basic UML constructs' behaviour reflected in the formal model, with a special focus on combined fragments.
@@ -818,14 +817,12 @@ The fact that we were able to reliably explain complicated bugs observed in prac
 \subsecshrinkbegin
 \vspace{-2 pt}
 DIRAC \cite{DIRAC_CommGridSolution} is the grid framework used to support production activities of the LHCb experiment at CERN.
-It covers all major LHCb tasks, starting from the raw data transfer from the experiment’s detector to the grid storage, several steps of data processing, up
-to the final user analysis.
 Jobs submitted via its interface undergo several processing steps between the moment they are submitted to the grid, 
 to the point when their execution on the grid actualizes. 
 \begin{figure}[!t]
 \centering
 \figshrink
-\includegraphics[width=1.0\linewidth,keepaspectratio=true]{./TraceNew1.png}
+\includegraphics[width=1.0\linewidth,keepaspectratio=true]{./Trace_final.png}
 \caption{SD trace showing a case of no-progress of tasks scheduling}
 \label{fig:noProgress}
 \figshrinkend
@@ -843,7 +840,7 @@ generated logs.
 
 We used our toolset to generate an mCRL2 model, based on the reverse-engineered SDs of the Executor Framework implementation. 
 To reason about the correctness of the generated model behaviour, mCRL2 relies on
-the modal $\mu$-calculus language~\cite{ProcessesWithData}, extended with regular expressions and
+the modal $\mu$-calculus language~\cite{mCRL2}, extended with regular expressions and
 data. Regular expressions are constructed using the boolean constants $true$ and $false$ and the modalities
 ``[]'' (\textit{necessity}) and ``\textless\textgreater'' (\textit{possibly}). 
 The behaviours inside the modalities are specified using \emph{action formulas}.
@@ -892,17 +889,11 @@ to build the message exchange sequence in the SD.
 \section{Conclusions and Future Work}
 \label{sec:Conclusions}
 \secshrinkbegin
-\vspace{-2 pt}
+\vspace{-4 pt}
 We have presented an automated transformation methodology for verification of UML models, based on sequence and 
 activity diagrams, preserving the object-oriented view of the system in the transformation. 
-Both the input and the output of our implemented toolchain are expressed in UML, so engineers
-do not have to leave the UML environment, nor have a background in process algebra and model checking. 
-We have further
-applied our toolset to a use case from the domain of distributed object-oriented software, in particular to a component
-of the DIRAC grid system used by the LHCb experiment at CERN, and discovered a logical flaw leading to no-progress.
-
 Although the mCRL2 toolset automatically discovers deadlocks, model checking for application-specific properties 
-requires the use of temporal logic on the generated model.
+requires the use of temporal logic.
 Part of the future work is expressing modal $\mu$-calculus formulas as sequence diagrams of accept/reject scenarios: 
 behaviours that the designer wants to either confirm or avoid in the model. This can be easily achieved, given that
 $\mu$-calculus formulas are action-based, and actions correspond to message exchanges in our transformation methodology.
