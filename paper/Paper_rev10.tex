@@ -44,10 +44,7 @@
 \makeatother
 \usepackage[caption=false,font=footnotesize]{subfig}
 \usepackage{url}
-\urldef{\mailsa}\path|{alfred.hofmann, ursula.barth, ingrid.haas,
-frank.holzwarth,|
-\urldef{\mailsb}\path|anna.kramer, leonie.kunz, christine.reiss, nicole.sator,|
-\urldef{\mailsc}\path|erika.siebert-cole, peter.strasser, lncs}@springer.com|  
+
 \usepackage{listings}
 \usepackage{enumerate}
 \usepackage{textcomp}
@@ -81,7 +78,7 @@ Model-Checking Software Design Artifacts of Concurrent Systems}
 %
 \author{Daniela Remenska\inst{1,3}
 \and Jeff Templon\inst{3} \and Tim A.C. Willemse\inst{2} \and Philip Homburg\inst{1} \and\
-Kees Verstoep\inst{1} \and Adria Casajus\inst{4} \and Henri Bal\inst{1}}
+\\* Kees Verstoep\inst{1} \and Adria Casajus\inst{4} \and Henri Bal\inst{1}}
 %
 % (feature abused for this document to repeat the title also on left hand pages)
 
@@ -148,7 +145,7 @@ systems. Over time, several mature CASE tools have already adopted UML as the
 industry-standard visual modeling language for describing software systems. 
 However, use of these tools alone does not
 assure the correctness of the design, nor does it provide direct means to test
-the software under design,
+the software under design.
 For safety-critical and
 complex distributed applications, traditional testing does not always expose
 such problems. Performing more rigorous formal
@@ -315,7 +312,7 @@ on the lifeline on a single object thus plays an important role in our transform
 \subsecshrinkbegin
 \subsubsection{Combined Fragments}
 \label{sec:CombinedFragments}
-\vspace{-24 pt}
+\vspace{-28 pt}
 Combined Fragments were introduced to add more expressiveness to SDs by 
 means of constructs capturing complex control flows, thus overcoming many limitations 
 present in UML 1.x~\cite{UML2.4}. The specification supports different fragment types,
@@ -325,11 +322,10 @@ They are visualized as rectangles with a keyword
 indicating the type.
 \begin{figure}[!b]
 \centering
-\figshrink
 \includegraphics[width=1.0\linewidth,keepaspectratio=true]{./Figure2_final.png}
 \caption{Combined Fragments examples}
 \label{fig:example2}
-\figshrinkend
+
 \end{figure}
 Combined Fragments consist of one or more \emph{InteractionOperands}. Depending on the type
 of the fragment, \emph{InteractionConstraints} can guard each of the interaction operands.
@@ -342,8 +338,6 @@ Another useful enhancement is the \emph{InteractionUse} fragment. Thus, for expr
 complex scenarios, one can include a reference to another SD, which is semantically
 equivalent to including the behavior of the called diagram in the current one. This promotes reuse of already defined
 sequence diagrams. 
-\vspace{-9 pt}
-
 \subsecshrinkbegin
 \subsubsection{Runtime Semantics}
 Unlike the syntax, the SD semantics is scattered through the UML specification, and defined by the means of natural language. 
@@ -487,7 +481,8 @@ We take into account both synchronous and asynchronous messages,
 so there are essentially 6 different types of message events (shown in Fig.~\ref{fig:exampleProcesses}) that we consider: 
 (1) \emph{SendEvent}\textunderscore\emph{synchCall}; (2) \emph{SendEvent}\textunderscore\emph{reply}; (3) \emph{ReceiveEvent}\textunderscore\emph{synchCall}; 
 (4) \emph{ReceiveEvent}\textunderscore\emph{reply};
-(5) \emph{ReceiveEvent}\textunderscore\emph{asynchCall}; and (6) \emph{SendEvent}\textunderscore\emph{asynchCall}.
+(5) \emph{ReceiveEvent}\textunderscore
+\\*\emph{asynchCall}; and (6) \emph{SendEvent}\textunderscore\emph{asynchCall}.
 \begin{figure}[!b]
 \centering
 %\figshrink
@@ -505,7 +500,7 @@ An \emph{Interaction} (a Sequence Diagram)
 essentially encloses \emph{Messages}, \emph{Lifelines} and an ordered list of \emph{InteractionFragments}.
 Each \emph{Message} is accompanied by a pair of \emph{MessageOccurrenceSpecifications}, and has a reference to
 the lifelines at which the message is sent and and received. 
-Both \emph{MessageOccurrenceSpecifications} and \emph{CombinedFragments} (omitted from the figure for clarity) 
+Both \emph{MessageOccurrenceSpecifications} and \emph{CombinedFragments} 
 are specializations of \emph{InteractionFragment}.
 We exploit these relationships in our algorithm for matching and transforming into an mCRL2 model.
 % The main algorithm steps are given in continuation.
@@ -792,7 +787,7 @@ In this context, formal correctness proofs to support the validity of the transf
 To assess the correctness of our proposed semantics, we used the simulation and visualization mCRL2 tools on
 simple diagrams in isolation, in order to get confidence before applying the transformation methodology on
 more complex ones. This informal validation was based on the compositional nature of UML; we closely 
-examined the basic UML constructs' behaviour reflected in the formal model, with a special focus on combined fragments.
+examined the basic UML constructs' behavior reflected in the formal model, with a special focus on combined fragments.
 Furthermore, to facilitate the transformation, we have constructed a UML metamodel~\cite{repo:remenska} of the mCRL2 language syntax.
 The fact that we were able to reliably explain complicated bugs observed in practice provided additional confidence.
 %
@@ -839,16 +834,16 @@ The root cause of this problem could not be identified by testing  with differen
 generated logs. 
 
 We used our toolset to generate an mCRL2 model, based on the reverse-engineered SDs of the Executor Framework implementation. 
-To reason about the correctness of the generated model behaviour, mCRL2 relies on
+To reason about the correctness of the generated model behavior, mCRL2 relies on
 the modal $\mu$-calculus language~\cite{mCRL2}, extended with regular expressions and
 data. Regular expressions are constructed using the boolean constants $true$ and $false$ and the modalities
 ``[]'' (\textit{necessity}) and ``\textless\textgreater'' (\textit{possibly}). 
-The behaviours inside the modalities are specified using \emph{action formulas}.
+The behaviors inside the modalities are specified using \emph{action formulas}.
 The constants $true$ and $false$
 have their usual meaning: $true$ holds in every state, while $false$ does
 not hold in any state of the model. 
 Together with operators like ``$\ast$'', used for expressing cardinality (actions can occur
-any number of times), ``.'', which allows for concatenating behaviours, and ``!'' for the set complement, or negation, powerful expressions can be formulated.
+any number of times), ``.'', which allows for concatenating behaviors, and ``!'' for the set complement, or negation, powerful expressions can be formulated.
 The \emph{action-based} formulas are a good match for our transformation 
 methodology: actions correspond to message exchanges, which already contain the information on the sender/receiver class
 and object of a particular message. As will be discussed in the next section, we plan to utilize this 
@@ -869,7 +864,7 @@ and observe the relevant actions that the system itself takes. This technique, c
 choice in the tool,
 effectively discovered
 a trace violating the property within minutes. The counter-example (Fig.~\ref{fig:noProgress}) is a rather long trace (available at~\cite{repo:remenska}), 
-and traverses a large fraction of the SDs (27 in total), but the bug was localized in a single SD, covering the behaviour of 
+and traverses a large fraction of the SDs (27 in total), but the bug was localized in a single SD, covering the behavior of 
 the ExecutorDispatcher component. 
 We only present the most important part for understanding the cause. 
 Whenever a task has been processed by some of 
@@ -895,13 +890,13 @@ activity diagrams, preserving the object-oriented view of the system in the tran
 Although the mCRL2 toolset automatically discovers deadlocks, model checking for application-specific properties 
 requires the use of temporal logic.
 Part of the future work is expressing modal $\mu$-calculus formulas as sequence diagrams of accept/reject scenarios: 
-behaviours that the designer wants to either confirm or avoid in the model. This can be easily achieved, given that
+behaviors that the designer wants to either confirm or avoid in the model. This can be easily achieved, given that
 $\mu$-calculus formulas are action-based, and actions correspond to message exchanges in our transformation methodology.
 Furthermore, we plan to explore the limitations of this approach, given that process proliferation is likely to happen
 in larger systems. In our case study, we have as many as 50 processes, and already generating the entire state space can be problematic
 at this scale, given that the generated model is over 2k lines of model code.
 
-Besides discovering behavioural problems, automating performance analysis is on our road-map as well.
+Besides discovering behavioral problems, automating performance analysis is on our road-map as well.
 UML provides extension mechanisms called \emph{Profiles} which allow annotating models with quantitative information,
 such as expected execution time, resource usage, number of requests, etc.
 These quantities permit assessing the system's efficiency and reliability. Our approach can be easily extended
